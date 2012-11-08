@@ -1,5 +1,7 @@
 # MongoDB ODM Silex Service Provider
 
+[![Build Status](https://secure.travis-ci.org/romainneutron/MongoDB-ODM-Silex-Provider.png?branch=master)](https://travis-ci.org/romainneutron/MongoDB-ODM-Silex-Provider)
+
 This [Silex](silex.sensiolabs.org/) service provider provides Doctrine
 [MongoDB ODM](http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/index.html)
 service in your Silex Application.
