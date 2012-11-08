@@ -3,6 +3,9 @@ language: php
 services: []
 
 before_script:
+  - git clone --quiet git://github.com/mongodb/mongo-php-driver.git
+  - sh -c "cd mongo-php-driver && ./configure --quiet && make --quiet && sudo make install --quiet"
+  - echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - composer install --dev
 
 php:
