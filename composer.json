@@ -5,16 +5,16 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Romain Neutron",
-            "email": "imprec@gmail.com"
-        },
-        {
             "name": "Justin Hileman",
             "email": "justin@justinhileman.info"
         },
         {
             "name": "Florian Klein",
             "email": "florian.klein@free.fr"
+        },
+        {
+            "name": "Romain Neutron",
+            "email": "imprec@gmail.com"
         }
     ],
     "require": {

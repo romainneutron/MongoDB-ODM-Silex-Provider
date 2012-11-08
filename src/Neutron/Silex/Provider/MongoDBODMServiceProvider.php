@@ -17,8 +17,8 @@ use Doctrine\ODM\MongoDB\Mapping\Driver\YamlDriver;
 
 /**
  * @author Justin Hileman <justin@justinhileman.info>
- * @author Justin Hileman <justin@justinhileman.info>
- * @author Justin Hileman <justin@justinhileman.info>
+ * @author Florian Klein  <florian.klein@free.fr>
+ * @author Romain Neutron <imprec@gmail.com>
  */
 class MongoDBODMServiceProvider implements ServiceProviderInterface
 {
