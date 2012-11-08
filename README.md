@@ -1,7 +1,8 @@
 # MongoDB ODM Silex Service Provider
 
-This [Silex]() service provider provides Doctrine [MongoDB ODM]() service in your
-Silex Application.
+This [Silex](silex.sensiolabs.org/) service provider provides Doctrine
+[MongoDB ODM](http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/index.html)
+service in your Silex Application.
 
 This provider has been developed by [Justin Hileman](https://github.com/bobthecow/SilexExtensions/tree/master/DoctrineMongoDB/src)
 and [Florian Klein](https://github.com/docteurklein/SilexServiceProviders/tree/master/DoctrineMongoDB/src)
