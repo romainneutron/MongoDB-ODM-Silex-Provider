@@ -4,8 +4,6 @@ namespace Neutron\Silex\Provider;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-use Doctrine\Common\Cache\ApcCache;
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\EventManager;
 use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
 use Doctrine\MongoDB\Connection;
@@ -54,7 +52,7 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
             'auto_generate_proxies' => true,
             'hydrators_dir'         => 'cache/doctrine/odm/mongodb/Hydrator',
             'hydrators_namespace'   => 'DoctrineMongoDBHydrator',
-            'metadata_cache'        => 'apc',
+            'metadata_cache'        => new \Doctrine\Common\Cache\ArrayCache(),
         );
 
         foreach ($defaults as $key => $value) {
@@ -69,12 +67,7 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
         $app['doctrine.odm.mongodb.configuration'] = $app->share(function() use($app) {
             $config = new Configuration;
 
-            if ($app['doctrine.odm.mongodb.metadata_cache'] == 'apc') {
-                $cache = new ApcCache;
-            } else {
-                $cache = new ArrayCache;
-            }
-            $config->setMetadataCacheImpl($cache);
+            $config->setMetadataCacheImpl($app['doctrine.odm.mongodb.metadata_cache']);
 
             if (isset($app['doctrine.odm.mongodb.connection_options']['database'])) {
                 $config->setDefaultDB($app['doctrine.odm.mongodb.connection_options']['database']);
