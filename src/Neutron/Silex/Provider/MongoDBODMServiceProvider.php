@@ -52,7 +52,7 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
             'auto_generate_proxies' => true,
             'hydrators_dir'         => 'cache/doctrine/odm/mongodb/Hydrator',
             'hydrators_namespace'   => 'DoctrineMongoDBHydrator',
-            'metadata_cache'        => 'ApcCache',
+            'metadata_cache'        => new \Doctrine\Common\Cache\ArrayCache(),
         );
 
         foreach ($defaults as $key => $value) {
@@ -67,14 +67,7 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
         $app['doctrine.odm.mongodb.configuration'] = $app->share(function() use($app) {
             $config = new Configuration;
 
-            $cacheClass = '\\Doctrine\\Common\\Cache\\' . $app['doctrine.odm.mongodb.metadata_cache'];
-            if (class_exists($cacheClass)) {
-                $cache = new $cacheClass();
-            }
-            else {
-                $cache = new \Doctrine\Common\Cache\ArrayCache();
-            }
-            $config->setMetadataCacheImpl($cache);
+            $config->setMetadataCacheImpl($app['doctrine.odm.mongodb.metadata_cache']);
 
             if (isset($app['doctrine.odm.mongodb.connection_options']['database'])) {
                 $config->setDefaultDB($app['doctrine.odm.mongodb.connection_options']['database']);
