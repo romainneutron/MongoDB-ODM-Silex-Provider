@@ -18,7 +18,7 @@ Enjoy
 
 ## Composer
 
-Add in jour ```composer.json``` the require entry for this library.
+Add in your ```composer.json``` the require entry for this library.
 
 ``` json
 {
