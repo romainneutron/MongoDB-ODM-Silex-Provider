@@ -20,11 +20,11 @@ Enjoy
 
 Add in your ```composer.json``` the require entry for this library.
 
-``` json
+```json
 {
     "require": {
         "neutron/mongo-odm-silex-provider": "*"
-    },
+    }
 }
 ```
 
