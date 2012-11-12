@@ -28,7 +28,7 @@ Add in your ```composer.json``` the require entry for this library.
 }
 ```
 
-and run ```composer install``` (or ```update```) to download all files, resolve dipendencies and update the autoloading.php file.
+and run ```composer install``` (or ```update```) to download all files, resolve dependencies and update the autoloading.php file.
 
 ## Registering
 
