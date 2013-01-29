@@ -40,19 +40,20 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
         $app['doctrine.odm.mongodb.connection_options'] = array_replace(array(
             'database' => null,
             'host'     => null,
-            ), $options);
+        ), $options);
 
         // default extension options
         $defaults = array(
-            'documents' => array(
-                array('type'                  => 'annotation', 'path'                  => 'Document', 'namespace'             => 'Document')
+            'documents'               => array(
+                array('type' => 'annotation', 'path' => 'Document', 'namespace' => 'Document')
             ),
-            'proxies_dir'           => 'cache/doctrine/odm/mongodb/Proxy',
-            'proxies_namespace'     => 'DoctrineMongoDBProxy',
-            'auto_generate_proxies' => true,
-            'hydrators_dir'         => 'cache/doctrine/odm/mongodb/Hydrator',
-            'hydrators_namespace'   => 'DoctrineMongoDBHydrator',
-            'metadata_cache'        => new \Doctrine\Common\Cache\ArrayCache(),
+            'proxies_dir'             => 'cache/doctrine/odm/mongodb/Proxy',
+            'proxies_namespace'       => 'DoctrineMongoDBProxy',
+            'auto_generate_proxies'   => true,
+            'hydrators_dir'           => 'cache/doctrine/odm/mongodb/Hydrator',
+            'hydrators_namespace'     => 'DoctrineMongoDBHydrator',
+            'auto_generate_hydrators' => true,
+            'metadata_cache'          => new \Doctrine\Common\Cache\ArrayCache(),
         );
 
         foreach ($defaults as $key => $value) {
@@ -64,7 +65,7 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
 
     private function loadDoctrineMongoDBConfiguration(Application $app)
     {
-        $app['doctrine.odm.mongodb.configuration'] = $app->share(function() use($app) {
+        $app['doctrine.odm.mongodb.configuration'] = $app->share(function () use ($app) {
             $config = new Configuration;
 
             $config->setMetadataCacheImpl($app['doctrine.odm.mongodb.metadata_cache']);
@@ -74,18 +75,18 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
             }
 
             $chain = new MappingDriverChain();
-            foreach ((array) $app['doctrine.odm.mongodb.documents'] as $document) {
+            foreach ((array)$app['doctrine.odm.mongodb.documents'] as $document) {
                 switch ($document['type']) {
                     case 'annotation':
-                        $driver = AnnotationDriver::create((array) $document['path']);
+                        $driver = AnnotationDriver::create((array)$document['path']);
                         $chain->addDriver($driver, $document['namespace']);
                         break;
                     case 'yml':
-                        $driver = new YamlDriver((array) $document['path'], '.yml');
+                        $driver = new YamlDriver((array)$document['path'], '.yml');
                         $chain->addDriver($driver, $document['namespace']);
                         break;
                     case 'xml':
-                        $driver = new XmlDriver((array) $document['path'], '.xml');
+                        $driver = new XmlDriver((array)$document['path'], '.xml');
                         $chain->addDriver($driver, $document['namespace']);
                         break;
                     default:
@@ -101,6 +102,7 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
 
             $config->setHydratorDir($app['doctrine.odm.mongodb.hydrators_dir']);
             $config->setHydratorNamespace($app['doctrine.odm.mongodb.hydrators_namespace']);
+            $config->setAutoGenerateHydratorClasses($app['doctrine.odm.mongodb.auto_generate_hydrators']);
 
             return $config;
         });
@@ -115,13 +117,13 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
 
     private function loadDoctrineMongoDBDocumentManager(Application $app)
     {
-        $app['doctrine.odm.mongodb.event_manager'] = $app->share(function () use($app) {
+        $app['doctrine.odm.mongodb.event_manager'] = $app->share(function () use ($app) {
             return new EventManager;
         });
 
-        $app['doctrine.odm.mongodb.dm'] = $app->share(function () use($app) {
+        $app['doctrine.odm.mongodb.dm'] = $app->share(function () use ($app) {
             return DocumentManager::create(
-                    $app['doctrine.mongodb.connection'], $app['doctrine.odm.mongodb.configuration'], $app['doctrine.odm.mongodb.event_manager']
+                $app['doctrine.mongodb.connection'], $app['doctrine.odm.mongodb.configuration'], $app['doctrine.odm.mongodb.event_manager']
             );
         });
     }
