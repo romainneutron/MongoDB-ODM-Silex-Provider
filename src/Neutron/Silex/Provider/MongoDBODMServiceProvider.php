@@ -54,6 +54,7 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
             'hydrators_namespace'     => 'DoctrineMongoDBHydrator',
             'auto_generate_hydrators' => true,
             'metadata_cache'          => new \Doctrine\Common\Cache\ArrayCache(),
+            'logger_callable'         => null,
         );
 
         foreach ($defaults as $key => $value) {
@@ -103,6 +104,8 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
             $config->setHydratorDir($app['doctrine.odm.mongodb.hydrators_dir']);
             $config->setHydratorNamespace($app['doctrine.odm.mongodb.hydrators_namespace']);
             $config->setAutoGenerateHydratorClasses($app['doctrine.odm.mongodb.auto_generate_hydrators']);
+
+            $config->setLoggerCallable($app['doctrine.odm.mongodb.logger_callable']);
 
             return $config;
         });
