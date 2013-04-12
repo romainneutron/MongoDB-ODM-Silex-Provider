@@ -76,11 +76,13 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
             }
 
             $chain = new MappingDriverChain();
+            $usingAnnotations = false;
             foreach ((array)$app['doctrine.odm.mongodb.documents'] as $document) {
                 switch ($document['type']) {
                     case 'annotation':
                         $driver = AnnotationDriver::create((array)$document['path']);
                         $chain->addDriver($driver, $document['namespace']);
+                        $usingAnnotations = true;
                         break;
                     case 'yml':
                         $driver = new YamlDriver((array)$document['path'], '.yml');
@@ -95,6 +97,11 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
                         break;
                 }
             }
+
+            if ($usingAnnotations) {
+                AnnotationDriver::registerAnnotationClasses();
+            }
+
             $config->setMetadataDriverImpl($chain);
 
             $config->setProxyDir($app['doctrine.odm.mongodb.proxies_dir']);
