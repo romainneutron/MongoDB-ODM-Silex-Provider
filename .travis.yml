@@ -6,6 +6,7 @@ before_script:
   - git clone --quiet git://github.com/mongodb/mongo-php-driver.git
   - sh -c "cd mongo-php-driver && phpize && ./configure --quiet && make --quiet && sudo make install --quiet"
   - echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - composer self-update
   - composer install --dev --prefer-source
 
 php:
