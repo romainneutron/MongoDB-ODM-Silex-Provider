@@ -24,7 +24,6 @@
     "require-dev": {
         "silex/silex": "dev-master"
     },
-    "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
             "Neutron": "src"
