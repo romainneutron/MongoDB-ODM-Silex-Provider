@@ -22,7 +22,7 @@
         "doctrine/mongodb-odm": ">=1.0.0-beta4"
     },
     "require-dev": {
-        "silex/silex": "dev-master"
+        "silex/silex": "~1.0"
     },
     "autoload": {
         "psr-0": {
