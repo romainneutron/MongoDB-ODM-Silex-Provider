@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "doctrine/mongodb-odm": ">=1.0.0-beta4"
+        "doctrine/mongodb-odm": ">=1.0.0-BETA9"
     },
     "require-dev": {
         "silex/silex": "~1.0"
