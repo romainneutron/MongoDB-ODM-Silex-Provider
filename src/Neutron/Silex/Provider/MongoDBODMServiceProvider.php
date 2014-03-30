@@ -96,6 +96,11 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
                         throw new \InvalidArgumentException(sprintf('"%s" is not a recognized driver', $document['type']));
                         break;
                 }
+
+                // add namespace alias
+                if (isset($document['alias'])) {
+                    $config->addDocumentNamespace($document['alias'], $document['namespace']);
+                }
             }
 
             if ($usingAnnotations) {
