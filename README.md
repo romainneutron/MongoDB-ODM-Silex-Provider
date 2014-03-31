@@ -34,9 +34,7 @@ and run ```composer install``` (or ```update```) to download all files, resolve 
 
 You can register MongoDB ODM Provider using:
 
-``` php
-<?php
-
+```php
 use Neutron\Silex\Provider\MongoDBODMServiceProvider;
 
 // ...
@@ -77,18 +75,17 @@ The configuration params listed above can be omitted if you use the default valu
 
 You need to register the differents documents namespace to make possible use it with Doctrine ODM, eg:
 
-``` php
-<?php
-
+```php
 $app->register(new MongoDBODMServiceProvider(), array(
     // ...
     'doctrine.odm.mongodb.documents' => array(
         0 => array(
             'type' => 'annotation',
             'path' => array(
-                'src/Acme',
+                'src/Acme/Entities',
             ),
-            'namespace' => 'Acme'
+            'namespace' => 'Acme/Entities',
+            'alias'     => 'docs',
         ),
     ),
     // ...
@@ -101,9 +98,7 @@ you can add multiple folders/namespaces.
 
 Add information in MongoDB:
 
-``` php
-<?php
-
+```php
 // Define routing
 $app->post('/demo/add', function () use ($app) {
   // ...
@@ -119,11 +114,9 @@ $app->post('/demo/add', function () use ($app) {
 
 ```
 
-Retrive information from MongoDB:
+Retrieve information from MongoDB:
 
 ``` php
-<?php
-
 $app->get('/demo/list', function () use ($app) {
   // ...
   $demos = $app['doctrine.odm.mongodb.dm']
@@ -134,13 +127,17 @@ $app->get('/demo/list', function () use ($app) {
 });
 ```
 
+if you have define an alias, you can use it:
+
+```php
+$app['doctrine.odm.mongodb.dm']->getRepository('docs::Demo');
+```
+
 ## Creating console
 
 Sometime can be usefull have console to manage your Doctrine ODM. You can configure your console to use it with:
 
-``` php
-<?php
-
+```php
 use Symfony\Component\Console\Application;
 // .. other class to import
 use Doctrine\ODM\MongoDB\Tools\Console\Helper\DocumentManagerHelper;
