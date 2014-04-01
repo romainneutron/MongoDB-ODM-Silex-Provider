@@ -133,7 +133,7 @@ $app->get('/demo/list', function () use ($app) {
 });
 ```
 
-if you have defineD an alias, you can use it:
+if you have defined an alias, you can use it:
 
 ```php
 $app['doctrine.odm.mongodb.dm']->getRepository('docs::Demo');
