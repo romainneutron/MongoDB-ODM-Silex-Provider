@@ -42,8 +42,8 @@ use Neutron\Silex\Provider\MongoDBODMServiceProvider;
 $app->register(new MongoDBODMServiceProvider(), array(
     'doctrine.odm.mongodb.connection_options' => array(
         'database' => 'MONGODB_DB',
-        'host'     => 'MONGODB_SERVER',
-        'port'     => 'MONGODB_PORT',
+        'host'     => 'MONGODB_SERVER', // connection string: mongodb://[username:password@]host1[:port1][,host2[:port2:],...]/db
+        'options'  => array('fsync' => false) // connection options as described here: http://www.php.net/manual/en/mongoclient.construct.php
     ),
     'doctrine.odm.mongodb.documents'               => array(),
     'doctrine.odm.mongodb.proxies_dir'             => 'cache/doctrine/odm/mongodb/Proxy',
@@ -127,7 +127,7 @@ $app->get('/demo/list', function () use ($app) {
 });
 ```
 
-if you have define an alias, you can use it:
+if you have defineD an alias, you can use it:
 
 ```php
 $app['doctrine.odm.mongodb.dm']->getRepository('docs::Demo');
