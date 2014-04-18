@@ -40,6 +40,7 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
         $app['doctrine.odm.mongodb.connection_options'] = array_replace(array(
             'database' => null,
             'host'     => null,
+            'options'  => array()
         ), $options);
 
         // default extension options
@@ -126,7 +127,11 @@ class MongoDBODMServiceProvider implements ServiceProviderInterface
     private function loadDoctrineMongoDBConnection(Application $app)
     {
         $app['doctrine.mongodb.connection'] = $app->share(function () use ($app) {
-            return new Connection($app['doctrine.odm.mongodb.connection_options']['host'], array(), $app['doctrine.odm.mongodb.configuration']);
+            return new Connection($app['doctrine.odm.mongodb.connection_options']['host'], 
+                isset($app['doctrine.odm.mongodb.connection_options']['options']) 
+                    ? $app['doctrine.odm.mongodb.connection_options']['options']
+                    : array(),
+                $app['doctrine.odm.mongodb.configuration']);
         });
     }
 
