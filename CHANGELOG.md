@@ -1,6 +1,10 @@
 CHANGELOG
 ---------
 
+* 0.1.3 (2014-04-18)
+
+  * Add support for driver connection options (@myurasov).
+
 * 0.1.2 (2014-03-31)
 
   * Add alias support to document entities.
